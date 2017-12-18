@@ -5,7 +5,6 @@
 #include "xmrstak/backend/iBackend.hpp"
 #include "xmrstak/misc/environment.hpp"
 #include "xmrstak/net/msgstruct.hpp"
-#include "xmrstak/donate-level.hpp"
 
 #include <atomic>
 #include <array>
@@ -57,19 +56,9 @@ private:
 	// In miliseconds, has to divide a second (1000ms) into an integer number
 	constexpr static size_t iTickTime = 500;
 
-	// Dev donation time period in seconds. 100 minutes by default.
-	// We will divide up this period according to the config setting
-	constexpr static size_t iDevDonatePeriod = 100 * 60;
-
 	inline bool is_dev_time()
 	{
-		//Add 2 seconds to compensate for connect
-		constexpr size_t dev_portion = double(iDevDonatePeriod) * fDevDonationLevel + 2;
-
-		if(dev_portion < 12) //No point in bothering with less than 10s
-			return false;
-
-		return (get_timestamp() - dev_timestamp) % iDevDonatePeriod >= (iDevDonatePeriod - dev_portion);
+		return false;
 	};
 
 	std::list<timed_event> lTimedEvents;

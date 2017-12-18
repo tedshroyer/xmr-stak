@@ -33,7 +33,6 @@
 
 #include "xmrstak/jconf.hpp"
 #include "xmrstak/misc/console.hpp"
-#include "xmrstak/donate-level.hpp"
 #include "xmrstak/version.hpp"
 #include "xmrstak/http/webdesign.hpp"
 
@@ -538,21 +537,6 @@ void executor::ex_main()
 		}
 		
 		pools.emplace_back(i+1, params.poolURL.c_str(), params.poolUsername.c_str(), params.poolPasswd.c_str(), 9.9, false, params.poolUseTls, "", params.nicehashMode);
-	}
-
-	if(jconf::inst()->IsCurrencyMonero())
-	{
-		if(dev_tls)
-			pools.emplace_front(0, "donate.xmr-stak.net:6666", "", "", 0.0, true, true, "", false);
-		else
-			pools.emplace_front(0, "donate.xmr-stak.net:3333", "", "", 0.0, true, false, "", false);
-	}
-	else
-	{
-		if(dev_tls)
-			pools.emplace_front(0, "donate.xmr-stak.net:7777", "", "", 0.0, true, true, "", true);
-		else
-			pools.emplace_front(0, "donate.xmr-stak.net:4444", "", "", 0.0, true, false, "", true);
 	}
 
 	ex_event ev;
