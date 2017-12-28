@@ -40,14 +40,51 @@ void keccakf(uint64_t st[25], int rounds)
 		bc[3] = st[3] ^ st[8] ^ st[13] ^ st[18] ^ st[23];
 		bc[4] = st[4] ^ st[9] ^ st[14] ^ st[19] ^ st[24];
 
-		for (i = 0; i < 5; ++i) {
-			t = bc[(i + 4) % 5] ^ ROTL64(bc[(i + 1) % 5], 1);
-			st[i     ] ^= t;
-			st[i +  5] ^= t;
-			st[i + 10] ^= t;
-			st[i + 15] ^= t;
-			st[i + 20] ^= t;
-		}
+//		for (i = 0; i < 5; ++i) {
+//			printf("%d %d %d %d %d\n", i, i+4, (i+4)%5, i+1, (i+1)%5);
+//
+//0 4 4 1 1
+//			t = bc[(i + 4) % 5] ^ ROTL64(bc[(i + 1) % 5], 1);
+//			st[i     ] ^= t;
+//			st[i +  5] ^= t;
+//			st[i + 10] ^= t;
+//			st[i + 15] ^= t;
+//			st[i + 20] ^= t;
+			t = bc[4] ^ ROTL64(bc[1], 1);
+			st[0] ^= t;
+			st[5] ^= t;
+			st[10] ^= t;
+			st[15] ^= t;
+			st[20] ^= t;
+//1 5 0 2 2
+			t = bc[0] ^ ROTL64(bc[2], 1);
+			st[1] ^= t;
+			st[6] ^= t;
+			st[11] ^= t;
+			st[16] ^= t;
+			st[21] ^= t;
+//2 6 1 3 3
+			t = bc[1] ^ ROTL64(bc[3], 1);
+			st[2] ^= t;
+			st[7] ^= t;
+			st[12] ^= t;
+			st[17] ^= t;
+			st[22] ^= t;
+//3 7 2 4 4
+			t = bc[2] ^ ROTL64(bc[4], 1);
+			st[3] ^= t;
+			st[8] ^= t;
+			st[13] ^= t;
+			st[18] ^= t;
+			st[23] ^= t;
+//4 8 3 5 0
+			t = bc[3] ^ ROTL64(bc[0], 1);
+			st[4] ^= t;
+			st[9] ^= t;
+			st[14] ^= t;
+			st[19] ^= t;
+			st[24] ^= t;
+//              }
 
 		// Rho Pi
 		t = st[1];
